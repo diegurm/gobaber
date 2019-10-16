@@ -1,0 +1,8 @@
+{
+  "name": "gobarber-api",
+  "version": "1.0.0",
+  "description": "Gobarber ",
+  "main": "index.js",
+  "author": "Diego Rodrigues - diegurm@gmail.com",
+  "license": "MIT"
+}
