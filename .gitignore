@@ -1,2 +1,4 @@
 
 *.lock
+
+backend/package-lock.json
