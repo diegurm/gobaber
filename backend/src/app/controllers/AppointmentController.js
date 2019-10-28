@@ -4,7 +4,7 @@ import ptBR from 'date-fns/locale/pt-BR';
 import Appointment from '../models/Appointment';
 import User from '../models/User';
 import File from '../models/File';
-import Notificatoin from '../schemas/Notification';
+import Notification from '../schemas/Notification';
 
 class AppointmentController {
   async index(req, res) {
@@ -95,7 +95,7 @@ class AppointmentController {
     const formatDate = format(hourStart, "'dia' dd 'de' MMMM', às' H:mm'h' ", {
       locale: ptBR,
     });
-    await Notificatoin.create({
+    await Notification.create({
       content: ` Novo agendamento de ${user.name} para ${formatDate} `,
       user: provider_id,
     });
