@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import { startOfHour, parseISO, isBefore, format, subHours } from 'date-fns';
-import ptBR from 'date-fns/locale/pt-BR';
+import pt from 'date-fns/locale/pt';
 import Appointment from '../models/Appointment';
 import User from '../models/User';
 import File from '../models/File';
@@ -102,7 +102,7 @@ class AppointmentController {
      */
     const user = await User.findByPk(req.userId);
     const formatDate = format(hourStart, "'dia' dd 'de' MMMM', às' H:mm'h' ", {
-      locale: ptBR,
+      locale: pt,
     });
     await Notification.create({
       content: ` Novo agendamento de ${user.name} para ${formatDate} `,
@@ -120,6 +120,11 @@ class AppointmentController {
         {
           model: User,
           as: 'provider',
+          attributes: ['name', 'email'],
+        },
+        {
+          model: User,
+          as: 'user',
           attributes: ['name', 'email'],
         },
       ],
@@ -145,6 +150,14 @@ class AppointmentController {
       to: `${appointment.provider.name} <${appointment.provider.email}>`,
       subject: 'Agendamento cancelado',
       text: 'Você tem um novo cancelamento',
+      template: 'cancellation',
+      context: {
+        provider: appointment.provider.name,
+        user: appointment.user.name,
+        date: format(appointment.date, "'dia' dd 'de' MMMM', às' H:mm'h' ", {
+          locale: pt,
+        }),
+      },
     });
 
     return res.json(appointment);
