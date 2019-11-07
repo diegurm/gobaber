@@ -1,4 +1,4 @@
 export default {
-  secret: 'G0$b4ber2019!',
+  secret: process.env.APP_SECRET,
   experiesIn: '7d',
 };
